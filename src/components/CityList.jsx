@@ -1,9 +1,20 @@
+import CityItem from './CityItem'
 import styles from './CityList.module.css'
+import Spinner from './Spinner'
+import Message from './Message'
 
-function CityList() {
-  return (
+function CityList({isLoading, cities}) {
+  if(isLoading) return (
+    <Spinner />
+  );
+  if(!cities.length) return (
+    <Message message = "Add your first city by clicking on a city on the map. "/>
+  )
+    return (
     <div className={styles.cityList}>
-     LIST 
+     {cities.map(city => (
+        <CityItem city={city} key={city.id}/>
+     ))}
     </div>
   )
 }
