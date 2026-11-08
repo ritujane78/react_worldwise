@@ -3,21 +3,32 @@ import styles from './Map.module.css'
 import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvent } from 'react-leaflet';
 import { useCities } from '../contexts/CitiesContext';
 import { useEffect, useState } from 'react';
+import { useGeolocation } from '../hooks/useGeolocation';
+import Button from './Button'
+import { useUrlPosition } from '../hooks/useURLPosition';
 
 function Map() {
-  const [searchParams] = useSearchParams();
   const {cities} = useCities();
-  const [mapPosition, setMapPosition ] = useState([0, 40])
-  const mapLat = searchParams?.get("lat");
-  const mapLng = searchParams?.get("lng");
+  const [mapPosition, setMapPosition ] = useState([0, 40]);
+  const {isLoading: isLoadingPosition, position: geoLocationPosition, getPosition} = useGeolocation();
+  const [lat,lng] = useUrlPosition();
   useEffect(() => {
-    if(mapLat && mapLng){
-      setMapPosition([mapLat, mapLng])
-    }
-  },[mapLat, mapLng]);
+  if (lat && lng) {
+    setMapPosition([Number(lat), Number(lng)]);
+  }
+}, [lat, lng]);
+  useEffect(() => {
+    if(geoLocationPosition){
+      setMapPosition([geoLocationPosition.lat,geoLocationPosition.lng])
+    } 
+  }, [geoLocationPosition]);
 
   return (
     <div className={`${styles.mapContainer}`} >
+      {!geoLocationPosition &&
+      <Button type = "position" onclick = {getPosition} >
+        `{isLoadingPosition ? "Loading...": "Use your position"}`  
+      </Button>} 
       <MapContainer
       center={mapPosition}
       zoom={6}
@@ -51,12 +62,20 @@ function ChangeCentre({position}){
   return null;
 }
 
-function DetectClick(){
+import { useMapEvents } from "react-leaflet";
+
+function DetectClick() {
   const navigate = useNavigate();
 
-  useMapEvent({
-    click: () => navigate("form"),
-  })
+  useMapEvents({
+    click: (e) => {
+      navigate(
+        `form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`
+      );
+    },
+  });
+
+  return null;
 }
 
 export default Map
