@@ -35,18 +35,6 @@
         "lng": 13.376933665713324
       },
       "id": "98443197"
-    },
-    {
-      "cityName": "Kasei",
-      "country": "Kenya",
-      "emoji": "🇰🇪",
-      "date": "2026-11-08T09:28:22.669Z",
-      "notes": "",
-      "position": {
-        "lat": "2.259529020487652",
-        "lng": "35.31005859375001"
-      },
-      "id": "sLxdRO0SVRE"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
