@@ -20,7 +20,7 @@ function City() {
 
   useEffect(() => {
     getCity(id);
-  }, [id]);
+  }, [id, getCity]);
 
   const lat = searchParams.get("lat");
   const lng = searchParams.get("lng");
