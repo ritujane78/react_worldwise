@@ -19,11 +19,12 @@ const FAKE_USER = {
     name: "jane",
     password: "qwerty",
     email: "jane@example.com",
-    avatar: ""
+    avatar: "https://i.pravatar.cc/100?u=zz",
 }
 
 function AuthProvider({children}){
-    const [{user, isAuthenticated}, dispatch] = useReducer(reducer, initialState)
+    const [{user, isAuthenticated}, dispatch] = useReducer(reducer, initialState);
+
     function login(email, password){
         if(email === FAKE_USER.email && password === FAKE_USER.password){
             dispatch({type:"login", payload: FAKE_USER})
