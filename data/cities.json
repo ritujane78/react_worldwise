@@ -35,6 +35,18 @@
         "lng": 13.376933665713324
       },
       "id": "98443197"
+    },
+    {
+      "cityName": "San Roman",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2026-11-09T03:37:48.636Z",
+      "notes": "",
+      "position": {
+        "lat": "42.74748241493306",
+        "lng": "-6.943359375000001"
+      },
+      "id": "BnFqrgSNAQA"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
